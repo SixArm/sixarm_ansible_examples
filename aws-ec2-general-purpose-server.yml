@@ -1,0 +1,146 @@
+# Create a AWS EC2 general purpose server.
+#
+# This uses Amazon Web Services (AWS) Elastic Compute Cloud (EC2).
+# 
+# This uses environment variables:
+#
+#    * AWS_ACCESS_KEY or EC2_ACCESS_KEY
+#    * AWS_SECRET_ACCESS_KEY or EC2_SECRET_KEY
+#    * AWS_SECURITY_TOKEN or EC2_SECURITY_TOKEN
+#
+- name: Create AWS EC2 general purpose server with our preferences
+  - ec2:
+
+    ###
+    #
+    # Location
+    #
+    ###
+
+    # AWS EC2 Region: Currently we prefer US East (N. Virgina) because
+    # it's the only one that's able to use Cluster Compute instances,
+    # and also it's the region where we have our existing servers.
+    #
+    region: us-east-1
+
+    # AWS EC2 Availability Zone: Currently we prefer "us-east-1a"
+    # because it's the zone where we have many existing servers.
+    #
+    zone: us-east-1a
+
+    ###
+    #
+    # Server
+    #
+    ###
+
+    # Instance type: Currently we use "m3.medium" for a typical server.
+    #
+    # This is because m3.medium is the first tier of Amazon's general
+    # purpose instances that also have fast solid state drives.
+    #
+    instance_type: m3.medium
+
+    # AMI: Currently we prefer using the official Canonical AMIs for
+    # Ubuntu because we also using Ubuntu for our developer systems.
+    #
+    # We prefer the normal release (not LTS) for our prime server,
+    # because the normal release tends to have new features we want,
+    # and we're ok with giving up a bit of the LTS stability.
+    #
+    # We prefer hardware virtual machine (HVM) vs. paravirtual (PV),
+    # because HVM can take advantage of special hardware extensions
+    # for CPU, network, and storage, for better performance.
+    #
+    # Get the AMI list: https://cloud-images.ubuntu.com/locator/ec2/
+    #
+    image: ami-8696b3ec
+
+    ###
+    #
+    # Security
+    #
+    ###
+
+    # Key pair name to use to create the instance.
+    #
+    # The key pair name must already exist on EC2,
+    # and in the same EC2 region as the new instance.
+    #
+    # We created a key pair named "default".
+    #
+    # To manage your key pairs:
+    # https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs
+    #
+    key_name: default
+
+    # Security group name (or list of group names) for the host ports.
+    #
+    # These security groups are akin to a virtual firewall protection.
+    # Our default group is named "default" and allows all traffic.
+    #
+    # To see your AWS EC2 security groups:
+    # https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#SecurityGroups
+    #
+    group: default
+
+    ###
+    #
+    # Enhancement
+    #
+    ###
+
+    # Enable/disable the Termination Protection.
+    termination_protection: yes
+
+    # Enable/disable detailed monitoring e.g. CloudWatch.
+    monitoring: yes
+
+    # Enable/disable the instance using optimized EBS volumes.
+    ebs_optimized: yes
+
+    ###
+    #
+    # Tags
+    #
+    ###
+
+    # Tag the instance with any kind of key-value tagging we want.
+    #
+    # Ansible uses the tags to track starting and stoppping instances.
+    #
+    # We use a "ZID" which is similar to a "UUID" or "GID" unique ID.
+    # This is because we want exactly one instance running.
+    #
+    # If you want to create multiple instances, such as 5 webservers,
+    # then you can use any tag you want, such as "purpose: webserver".
+    #
+    instance_tags:
+      zid: c489b843ebd22ce7b146dbf9e45f10fa
+
+    # Use 'count_tag' in combination with 'exact_count' to ensure the
+    # script is idempotent, i.e. creates the correct number of instances.
+    #
+    # We count the "ZID" tag, which we know is unique to an instance.
+    # This is because we want exactly one instance running.
+    #
+    count_tag:
+      zid: c489b843ebd22ce7b146dbf9e45f10fa
+
+    # How many instances matching the 'count_tag' parameter must be running.
+    #
+    # We want exactly one instance running.
+    #
+    exact_count: 1
+
+    ###
+    #
+    # Wait
+    #
+    ###
+
+    # Wait for the instance to be 'running' before returning?
+    wait: yes
+
+    # How long before wait gives up, in seconds.
+    wait_timeout: 500
