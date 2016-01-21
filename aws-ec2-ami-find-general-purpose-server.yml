@@ -1,0 +1,39 @@
+# Find the AWS EC2 AMI that we want for a general purpose server.
+#
+# We want:
+#
+#  * current Ubuntu
+#  * provided by Canonical
+#  * runs on x86 64 architecture
+#  * is public
+#  * use Xen hypervisor
+#  * use HVM instead of paravirtualization.
+#  * available in region U.S. East 1.
+#
+---
+- ec2_ami_find:
+
+  ###
+  #
+  # Filters
+  #
+  ###
+
+  name: ubuntu/images/hvm/ubuntu-*-*-amd64-server-*
+  owner: 099720109477 
+  architecture: x86_64
+  hypervisor: xen
+  is_public: yes
+  region: us-east-1
+
+  ###
+  # 
+  # Output
+  #
+  ###
+
+  sort: name
+  sort_order: descending
+  sort_end: 1
+  no_result_action: fail
+  register: ec2_ami_find_var
