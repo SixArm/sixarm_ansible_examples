@@ -110,7 +110,9 @@
     monitoring: "{{ monitoring | default('yes') }}"
 
     # Enable/disable the instance using optimized EBS volumes.
-    ebs_optimized: "{{ ebs_optimized | default('yes') }}"
+    # We prefer EBS optimized volumes if they are available.
+    # They are not available on our default m3.medium instance.
+    ebs_optimized: "{{ ebs_optimized | default('no') }}"
 
     ###
     #
