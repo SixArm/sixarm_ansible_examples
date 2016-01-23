@@ -26,12 +26,12 @@
     # it's the only one that's able to use Cluster Compute instances,
     # and also it's the region where we have our existing servers.
     #
-    region: {{ region | default(us-east-1) }}
+    region: "{{ region | default('us-east-1') }}"
 
     # AWS EC2 Availability Zone: Currently we prefer "us-east-1a"
     # because it's the zone where we have many existing servers.
     #
-    zone: {{ zone | default(us-east-1a) }}
+    zone: "{{ zone | default('us-east-1a') }}"
 
     ###
     #
@@ -41,10 +41,18 @@
 
     # Instance type: Currently we use "m3.medium" for a typical server.
     #
-    # This is because m3.medium is the first tier of Amazon's general
-    # purpose instances that also have fast solid state drives.
+    # Amazon offers Fixed Performance Instances (e.g. M3, C3, and R3)
+    # and Burstable Performance Instances (e.g. T2). T2 instances are
+    # for workloads that don’t use the full CPU often or consistently.
+    # but occasionally need to burst. Bursts use up EC2 credits.
     #
-    instance_type: {{ instance_type | default (m3.medium) }}
+    # We prefer m3.medium because it is the first tier of Amazon's
+    # general purpose instances with fast solid state drives (SSDs).
+    # The m3 instances can be created with SSD ephemeral storage,
+    # which has much greater I/O capacity than persistent EBS storage.
+    # For comparison, EC2 T2 instances do not have the SSD option.
+    #
+    instance_type: "{{ instance_type | default ('m3.medium') }}"
 
     # AMI: Currently we prefer using the official Canonical AMIs for
     # Ubuntu because we also using Ubuntu for our developer systems.
@@ -59,7 +67,7 @@
     #
     # Get the AMI list: https://cloud-images.ubuntu.com/locator/ec2/
     #
-    image: {{ image | default(ami-8696b3ec) }}
+    image: "{{ image | default('ami-8696b3ec') }}"
 
     ###
     #
@@ -77,7 +85,7 @@
     # To manage your key pairs:
     # https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs
     #
-    key_name: {{ key_name | default(default) }}
+    key_name: "{{ key_name | default(default) }}"
 
     # Security group name (or list of group names) for the host ports.
     #
@@ -87,7 +95,7 @@
     # To see your AWS EC2 security groups:
     # https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#SecurityGroups
     #
-    group: {{ group | default(default) }}
+    group: "{{ group | default(default) }}"
 
     ###
     #
@@ -96,13 +104,13 @@
     ###
 
     # Enable/disable the Termination Protection.
-    termination_protection: {{ termination_protection | default(yes) }}
+    termination_protection: "{{ termination_protection | default('yes') }}"
 
     # Enable/disable detailed monitoring e.g. CloudWatch.
-    monitoring: {{ monitoring | default(yes) }}
+    monitoring: "{{ monitoring | default('yes') }}"
 
     # Enable/disable the instance using optimized EBS volumes.
-    ebs_optimized: {{ ebs_optimized | default(yes) }}
+    ebs_optimized: "{{ ebs_optimized | default('yes') }}"
 
     ###
     #
@@ -121,7 +129,7 @@
     # then you can use any tag you want, such as "purpose: webserver".
     #
     instance_tags:
-      zid: {{ zid | mandatory }}
+      zid: "{{ zid | mandatory }}"
 
     # Use 'count_tag' in combination with 'exact_count' to ensure the
     # script is idempotent, i.e. creates the correct number of instances.
@@ -130,13 +138,13 @@
     # This is because we want exactly one instance running.
     #
     count_tag:
-      zid: {{ zid | mandatory }}
+      zid: "{{ zid | mandatory }}"
 
     # How many instances matching the 'count_tag' parameter must be running.
     #
     # We want exactly one instance running.
     #
-    exact_count: {{ exact_count | default(1) }}
+    exact_count: "{{ exact_count | default(1) }}"
 
     ###
     #
@@ -145,7 +153,7 @@
     ###
 
     # Wait for the instance to be 'running' before returning?
-    wait: {{ wait | default(yes) }}
+    wait: "{{ wait | default('yes') }}"
 
     # How long before wait gives up, in seconds.
-    wait_timeout: {{ wait_timeout | default(800) }}
+    wait_timeout: "{{ wait_timeout | default(800) }}"
