@@ -1,12 +1,17 @@
 # Create a AWS EC2 general purpose server.
 #
 # This uses Amazon Web Services (AWS) Elastic Compute Cloud (EC2).
-# 
+#
 # This uses environment variables:
 #
 #    * AWS_ACCESS_KEY or EC2_ACCESS_KEY
 #    * AWS_SECRET_ACCESS_KEY or EC2_SECRET_KEY
 #    * AWS_SECURITY_TOKEN or EC2_SECURITY_TOKEN
+#
+# Mandatory variable:
+#
+#    * zid: a unique identifier that this script uses to tag the instance.
+#      This is what constrains this script to produce exactly one instance.
 #
 - name: Create AWS EC2 general purpose server with our preferences
   - ec2:
@@ -21,12 +26,12 @@
     # it's the only one that's able to use Cluster Compute instances,
     # and also it's the region where we have our existing servers.
     #
-    region: us-east-1
+    region: {{ region | default(us-east-1) }}
 
     # AWS EC2 Availability Zone: Currently we prefer "us-east-1a"
     # because it's the zone where we have many existing servers.
     #
-    zone: us-east-1a
+    zone: {{ zone | default(us-east-1a) }}
 
     ###
     #
@@ -39,7 +44,7 @@
     # This is because m3.medium is the first tier of Amazon's general
     # purpose instances that also have fast solid state drives.
     #
-    instance_type: m3.medium
+    instance_type: {{ instance_type | default (m3.medium) }}
 
     # AMI: Currently we prefer using the official Canonical AMIs for
     # Ubuntu because we also using Ubuntu for our developer systems.
@@ -54,7 +59,7 @@
     #
     # Get the AMI list: https://cloud-images.ubuntu.com/locator/ec2/
     #
-    image: ami-8696b3ec
+    image: {{ image | default(ami-8696b3ec) }}
 
     ###
     #
@@ -72,7 +77,7 @@
     # To manage your key pairs:
     # https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs
     #
-    key_name: default
+    key_name: {{ key_name | default(default) }}
 
     # Security group name (or list of group names) for the host ports.
     #
@@ -82,7 +87,7 @@
     # To see your AWS EC2 security groups:
     # https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#SecurityGroups
     #
-    group: default
+    group: {{ group | default(default) }}
 
     ###
     #
@@ -91,13 +96,13 @@
     ###
 
     # Enable/disable the Termination Protection.
-    termination_protection: yes
+    termination_protection: {{ termination_protection | default(yes) }}
 
     # Enable/disable detailed monitoring e.g. CloudWatch.
-    monitoring: yes
+    monitoring: {{ monitoring | default(yes) }}
 
     # Enable/disable the instance using optimized EBS volumes.
-    ebs_optimized: yes
+    ebs_optimized: {{ ebs_optimized | default(yes) }}
 
     ###
     #
@@ -116,7 +121,7 @@
     # then you can use any tag you want, such as "purpose: webserver".
     #
     instance_tags:
-      zid: c489b843ebd22ce7b146dbf9e45f10fa
+      zid: {{ zid | mandatory }}
 
     # Use 'count_tag' in combination with 'exact_count' to ensure the
     # script is idempotent, i.e. creates the correct number of instances.
@@ -125,13 +130,13 @@
     # This is because we want exactly one instance running.
     #
     count_tag:
-      zid: c489b843ebd22ce7b146dbf9e45f10fa
+      zid: {{ zid | mandatory }}
 
     # How many instances matching the 'count_tag' parameter must be running.
     #
     # We want exactly one instance running.
     #
-    exact_count: 1
+    exact_count: {{ exact_count | default(1) }}
 
     ###
     #
@@ -140,7 +145,7 @@
     ###
 
     # Wait for the instance to be 'running' before returning?
-    wait: yes
+    wait: {{ wait | default(yes) }}
 
     # How long before wait gives up, in seconds.
-    wait_timeout: 500
+    wait_timeout: {{ wait_timeout | default(800) }}
