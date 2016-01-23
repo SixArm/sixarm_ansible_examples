@@ -1,4 +1,4 @@
-# Create a AWS EC2 general purpose server.
+# Create a AWS EC2 instance for a general purpose server.
 #
 # This uses Amazon Web Services (AWS) Elastic Compute Cloud (EC2).
 #
@@ -13,7 +13,7 @@
 #    * zid: a unique identifier that this script uses to tag the instance.
 #      This is what constrains this script to produce exactly one instance.
 #
-- name: Create AWS EC2 general purpose server with our preferences
+- name: Create AWS EC2 instance for a general purpose server
   ec2:
 
     ###

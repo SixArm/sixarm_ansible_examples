@@ -1,4 +1,4 @@
-# Find the AWS EC2 AMI that we want for a general purpose server.
+# Find the AWS EC2 AMI for a general purpose server.
 #
 # We want:
 #

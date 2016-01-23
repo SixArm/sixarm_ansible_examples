@@ -7,23 +7,17 @@
 #    * AWS_ACCESS_KEY or EC2_ACCESS_KEY
 #    * AWS_SECRET_ACCESS_KEY or EC2_SECRET_KEY
 #
+# To see your security groups:
+# https://console.aws.amazon.com/ec2/v2/home?#SecurityGroups
+#
 # The AWS EC2 security groups and settings for your account depend
 # on how old your AWS account is, i.e. when you first created it.
 # Older ones use "EC2 Classic" groups; newer ones use "VPC" groups.
 #
-# VPC means a virtual private cloud (VPC): a virtual network
-# dedicated to your AWS account. It is logically isolated from
-# other virtual networks in the AWS cloud. You can launch your AWS
-# resources, such as Amazon EC2 instances, into your VPC. You can
-# configure your VPC; you can select its IP address range, create
-# subnets, and configure route tables, network gateways, and
-# security settings.
+# Differences between EC2-Classic vs. VPC regarding changes:
 #
-# To see if your account has VPC available, start here:
-# https://console.aws.amazon.com/ec2/v2/home
-#
-#   * Look for the section called "Account Attributes".
-#   * Look for "Supported Platforms", then "EC2" and/or "VPC".
+#   * You can change a VPC instance's security groups.
+#   * You cannot change a EC2-Classic instance's security groups.
 #
 # To see your VPC security groups:
 # https://console.aws.amazon.com/vpc/
@@ -47,6 +41,10 @@
 #
 - name: AWS EC2 security group for general purpose server
   ec2_group:
+
+    # The "name" is the security group name.
+    # The AWS console calls this the "Group Name".
+    #
     name: general
     description: general purpose server
 
