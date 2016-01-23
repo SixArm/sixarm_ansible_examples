@@ -95,6 +95,19 @@
     # These security groups are akin to a virtual firewall protection.
     # Our default group is named "default" and allows all traffic.
     #
+    # Your VPC automatically comes with a default security group.
+    # Each EC2 instance that you launch in your VPC is automatically
+    # associated with the default security group if you don't specify
+    # a different security group when you launch the instance.
+    #
+    # The default security group has two rules:
+    #
+    #   * Allow everything from instances within the same security group.
+    #   * Allow all outbound traffic.
+    #
+    # You can change the rules for your default security group.
+    # You cannot delete the default group, nor change the name "default".
+    #
     # To see your AWS EC2 security groups:
     # https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#SecurityGroups
     #
