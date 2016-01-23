@@ -19,15 +19,15 @@
   #
   ###
 
-  name: ubuntu/images/hvm/ubuntu-*-*-amd64-server-*
-  owner: 099720109477 
-  architecture: x86_64
-  hypervisor: xen
-  is_public: yes
-  region: us-east-1
+  name: {{ name | default(ubuntu/images/hvm/ubuntu-*-*-amd64-server-*) }}
+  owner: {{ owner | default(099720109477) }}
+  architecture: {{ architecture | default(x86_64) }}
+  hypervisor: {{ hypervisor | default(xen) }}
+  is_public: {{ is_public | default(yes) }}
+  region: {{ region | default(us-east-1) }}
 
   ###
-  # 
+  #
   # Output
   #
   ###
