@@ -85,7 +85,7 @@
     # To manage your key pairs:
     # https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs
     #
-    key_name: "{{ key_name | default(default) }}"
+    key_name: "{{ key_name | default('default') }}"
 
     # Security group name (or list of group names) for the host ports.
     #
@@ -95,7 +95,7 @@
     # To see your AWS EC2 security groups:
     # https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#SecurityGroups
     #
-    group: "{{ group | default(default) }}"
+    group: "{{ group | default('default') }}"
 
     ###
     #
