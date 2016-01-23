@@ -14,7 +14,7 @@
 #      This is what constrains this script to produce exactly one instance.
 #
 - name: Create AWS EC2 general purpose server with our preferences
-  - ec2:
+  ec2:
 
     ###
     #
