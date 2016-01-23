@@ -1,0 +1,91 @@
+# Create a AWS EC2 security group for a general purpose server.
+#
+# This uses Amazon Web Services (AWS) Elastic Compute Cloud (EC2).
+#
+# This uses environment variables:
+#
+#    * AWS_ACCESS_KEY or EC2_ACCESS_KEY
+#    * AWS_SECRET_ACCESS_KEY or EC2_SECRET_KEY
+#
+# The AWS EC2 security groups and settings for your account depend
+# on how old your AWS account is, i.e. when you first created it.
+# Older ones use "EC2 Classic" groups; newer ones use "VPC" groups.
+#
+# VPC means a virtual private cloud (VPC): a virtual network
+# dedicated to your AWS account. It is logically isolated from
+# other virtual networks in the AWS cloud. You can launch your AWS
+# resources, such as Amazon EC2 instances, into your VPC. You can
+# configure your VPC; you can select its IP address range, create
+# subnets, and configure route tables, network gateways, and
+# security settings.
+#
+# To see if your account has VPC available, start here:
+# https://console.aws.amazon.com/ec2/v2/home
+#
+#   * Look for the section called "Account Attributes".
+#   * Look for "Supported Platforms", then "EC2" and/or "VPC".
+#
+# To see your VPC security groups:
+# https://console.aws.amazon.com/vpc/
+#
+# Your VPC includes a default security group named "default".
+#
+# The group's initial rules are:
+#
+#   * deny all inbound traffic
+#   * allow all outbound traffic
+#   * allow all traffic between instances in the group
+#
+# You can't delete the default group.
+# You can change the group's rules.
+#
+# Note that you can't use the security groups that you've created for
+# use with EC2-Classic with instances in your VPC. You must create
+# security groups specifically for use with instances in your VPC. The
+# rules you create for use with a security group for a VPC can't
+# reference a security group for EC2-Classic, and vice versa.
+#
+- name: AWS EC2 security group for general purpose server
+  ec2_group:
+    name: general
+    description: general purpose server
+
+    ###
+    #
+    # Location
+    #
+    ###
+
+    # AWS EC2 Region: Currently we prefer US East (N. Virgina) because
+    # it's the only one that's able to use Cluster Compute instances,
+    # and also it's the region where we have our existing servers.
+    #
+    region: "{{ region | default('us-east-1') }}"
+
+    # To see your VPC security groups:
+    # https://console.aws.amazon.com/vpc/
+    #
+    vpc_id: "{{ vpc_id | mandatory }}"
+
+    ###
+    #
+    # Rules
+    #
+    ###
+
+    rules:
+      # Enable SSH
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      # Enable HTTP
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+      # Enable HTTPS
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 0.0.0.0/0
