@@ -1,0 +1,4 @@
+- name: AWS EC2 group for general purpose server
+  hosts: all
+  tasks:
+    - include: ../tasks/aws-ec2-group-for-general-purpose-server.yml

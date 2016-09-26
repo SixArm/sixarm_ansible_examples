@@ -1,0 +1,10 @@
+# ruby-install is a ruby programming language installation utility.
+#
+# We prefer ruby-install over RVM.
+#
+# Site: https://github.com/postmodern/ruby-install
+#
+- name: ruby-install
+  git: repo=https://github.com/postmodern/ruby-install.git dest=/opt/ruby-install
+- name: run
+  shell: $(command -v ruby-install 1>/dev/null) || $(cd /opt/ruby-install && sudo git pull && sudo make && sudo make install)

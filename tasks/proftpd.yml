@@ -1,0 +1,8 @@
+# ProFTPd: Highly configurable GPL-licensed FTP server software.
+# Site: http://www.proftpd.org/
+---
+- name: ProFTPd install
+  vars:
+    proftpd_version: 1.3.5a
+  get_url: url=ftp://ftp.proftpd.org/distrib/source/proftpd-{{ proftpd_version }}.tar.gz dest=/tmp/proftpd-{{ proftpd_version }}.tar.gz
+  unarchive: src=/tmp/proftpd-{{ proftpd_version }}.tar.gz dest=/tmp/ copy=no

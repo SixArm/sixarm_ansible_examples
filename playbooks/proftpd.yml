@@ -1,0 +1,4 @@
+- name: ProFTPd
+  hosts: all
+  tasks:
+    - include: ../tasks/proftpd.yml

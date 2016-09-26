@@ -1,0 +1,4 @@
+- name: which python
+  command: which python
+  register: x
+- debug: var=x.stdout_lines

@@ -1,0 +1,5 @@
+- name: which python
+  hosts: all
+  tasks:
+    - include: ../tasks/which-python.yml
+

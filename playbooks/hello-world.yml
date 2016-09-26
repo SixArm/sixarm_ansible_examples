@@ -1,0 +1,4 @@
+- name: Hello World
+  hosts: all
+  tasks:
+    - include: ../tasks/hello-world.yml

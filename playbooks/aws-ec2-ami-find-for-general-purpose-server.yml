@@ -1,0 +1,4 @@
+- name: AWS EC2 AMI find for general purpose server
+  hosts: all
+  tasks:
+    - include: ../tasks/aws-ec2-ami-find-for-general-purpose-server.yml

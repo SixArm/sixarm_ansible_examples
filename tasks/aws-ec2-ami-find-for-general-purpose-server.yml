@@ -10,30 +10,30 @@
 #  * use HVM instead of paravirtualization.
 #  * available in region U.S. East 1.
 #
----
 - ec2_ami_find:
 
-  ###
-  #
-  # Filters
-  #
-  ###
+    ####
+    #
+    # Filters
+    #
+    ###
 
-  name: {{ name | default(ubuntu/images/hvm/ubuntu-*-*-amd64-server-*) }}
-  owner: {{ owner | default(099720109477) }}
-  architecture: {{ architecture | default(x86_64) }}
-  hypervisor: {{ hypervisor | default(xen) }}
-  is_public: {{ is_public | default(yes) }}
-  region: {{ region | default(us-east-1) }}
+    #name: "{{ name | default(ubuntu/images/hvm/ubuntu-*-*-amd64-server-*) }}"
+    name: ubuntu/images/hvm/ubuntu-*-*-amd64-server-*
+    #owner: "{{ owner | default(099720109477) }}"
+    #architecture: "{{ architecture | default(x86_64) }}"
+    #hypervisor: "{{ hypervisor | default(xen) }}"
+    #is_public: "{{ is_public | default(yes) }}"
+    #region: "{{ region | default(us-east-1) }}"
 
-  ###
-  #
-  # Output
-  #
-  ###
+    ###
+    #
+    # Output
+    #
+    ###
 
-  sort: name
-  sort_order: descending
-  sort_end: 1
-  no_result_action: fail
-  register: ec2_ami_find_var
+    sort: "name"
+    sort_order: descending
+    sort_end: 1
+    no_result_action: fail
+    #register: ec2_ami_find_var
