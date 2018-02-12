@@ -3,13 +3,14 @@
 Contents:
 
 * [Start](#start)
-* [Host file](#host)
-* [Ansible playbooks and tasks](#ansble-playbooks-and-tasks)
-* [Output](#output)
-* [Privilege escalation](#privilege-escalation)
+* [Ansible playbooks and tasks](#ansible-playbooks-and-tasks)
+* [Host file ](#host-file-)
+* [Output ](#output-)
+* [Privilege escalation ](#privilege-escalation-)
+* [Boto 3 - The AWS SDK for Python ](#boto-3-the-aws-sdk-for-python-)
 
 
-<h2><a name="start">Start</a></h2>
+## Start
 
 Verify Ansible runs and its version is at least 2.1:
 
@@ -28,7 +29,7 @@ Clone this repo and go into it:
     $ cd //github.com/sixarm/sixarm_ansible_examples
 
 
-<h2><a name="ansible-playbooks-and-tasks">Ansible playbooks and tasks</a></h2>
+## Ansible playbooks and tasks
 
 This repository is oriented toward playbooks and tasks.
 
@@ -57,7 +58,7 @@ Run a simple playbook:
     localhost                  : ok=3    changed=0    unreachable=0    failed=0
 
 
-<h2><a name="host">Host file</a></h2> 
+## Host file 
 
 We typically use a host file, even when we are simply doing command line one-off scripts, because we like to have the flexibility of using multiple hostnames and multiple settings.
 
@@ -70,7 +71,7 @@ Now you can use the host file like this:
     $ ansible-playbook -i host -c local playbooks/hello-world.yml
 
 
-<h2><a name="out">Output</a></h2> 
+## Output 
 
 Ansible does not print the result of commands. Instead, an Ansible script can register a variable that receives the output, and then a subsequent task can print the output by using the debug module.
 
@@ -92,7 +93,7 @@ Run a playbook to print the current python interpreter path:
     }
 
 
-<h2><a name="privilege-escalation">Privilege escalation</a></h2> 
+## Privilege escalation 
 
 Ansible documentation strongly recommends against setting any sudo password in plaintext, and instead using the command line option `--ask-become-pass` abbreviated `-K`. This option used to be called `--ask-sudo-pass`.
 
@@ -117,7 +118,7 @@ Another way to accomplish privilege escalation is to create an Ansible vault:
 For more info see http://stackoverflow.com/questions/21870083/specify-sudo-password-for-ansible
 
 
-<h2><a name="boto">Boto 3 - The AWS SDK for Python</a></h2> 
+## Boto 3 - The AWS SDK for Python 
 
 Some Ansible modules use the python 2.x language and the Boto Amazon Web Services (AWS) Software Development Kit (SDK).
 
