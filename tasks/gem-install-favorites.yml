@@ -1,0 +1,41 @@
+- name: "gem install our favorite packages"
+  become: yes
+  become_user: root
+  gem:
+    name: "{{ item }}"
+  loop:
+    - arel
+    - bcrypt
+    - bdoc
+    - bson
+    - builder
+    - bundler
+    - curb
+    - dotenv
+    - faraday
+    - ffi
+    - hpricot
+    - httparty
+    - i18n
+    - json
+    - libv8
+    - mechanize
+    - mime-types
+    - netrc
+    - nokogiri
+    - open4
+    - parser
+    - pry
+    - rake
+    - rdoc
+    - selenium-client
+    - selenium-rc
+    - selenium-webdriver
+    - sqlite3
+    - ssh
+    - thor
+    - websocket
+    - websocket-driver
+    - websocket-extensions
+    - xpath
+    - yard
