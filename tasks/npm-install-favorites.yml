@@ -1,0 +1,58 @@
+- name: "npm install our favorite packages"
+  become: yes
+  become_user: root
+  command: "npm install -g {{ item }}"
+  loop:
+    # Lodash modular utilities.
+    - lodash
+    # Simplified HTTP request client.
+    - request
+    # Terminal string styling done right
+    - chalk
+    # Command-line programs for node.js
+    - commander
+    # Parse, validate, manipulate, and display dates
+    - moment
+    # Higher-order functions and common patterns for asynchronous code
+    - async
+    # Small debugging utility
+    - debug
+    # Full featured Promises/A+ implementation with exceptionally good performance
+    - bluebird
+    # File system extras such as mkdir -p, cp -r, and rm -rf.
+    - fs-extra
+    # functional programming helper library.
+    - underscore
+    # Make directory recursively like `mkdir -p`
+    - mkdirp
+    # Univeral unique identifiers RFC4122 (v1, v4, and v5)
+    - uuid
+    # Promise based HTTP client for the browser and node.js
+    - axios
+    # A simple utility for conditionally joining classNames together
+    - classnames
+    # body parsing middleware
+    - body-parser
+    # Babel self-contained runtime
+    - babel-runtime
+    # A little file name globber
+    - glob
+    # Get colors in your node.js console
+    - colors
+    # Runtime library for TypeScript helper functions
+    - tslib
+    - typescript
+    # Yargs is the modern, pirate-themed, successor to optimist.
+    - yargs
+    # Packs CommonJs/AMD modules for the browser.
+    - webpack
+    # Parse argument options
+    - minimist
+    # Babel compiler core.
+    - babel-core
+    # A collection of common interactive command line user interfaces.
+    - inquirer
+    # A tiny wrapper around Node.js streams to avoid explicit subclassing noise.
+    - through2
+    # Amazon Web Servies (AWS) Software Development Kit (SDK).
+    - aws-sdk
