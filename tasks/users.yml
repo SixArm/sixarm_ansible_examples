@@ -1,0 +1,83 @@
+##
+# Users: provide all the users that we want on typical systems.
+#
+# This user list is a simple way to ensure that we add all our users
+# to each system with the same ZID, UID, GID, SSH key, contact info, etc.
+#
+#
+# ## Why use this task?
+#
+# This kind of approach is a placeholder until there's something better,
+# such as Pluggable Authentication Modules (PAM), or Single Sign On (SSO),
+# or Amazon Web Service (AWS) Identity & Acess Management (IAM), etc.
+#
+#
+# ## Why use ZID?
+#
+# The ZID is a secure random hex identifier, akin to a UUID-4.
+#
+# This can be useful for tracking a user across systems and over time,
+# even if the user's UID is different on a different system, or the
+# user's username changes over time such as because of a name change.
+#
+# We've seen projects where the user's UID and username both change across
+# systems and over time, such as a when a staff member gets married.
+#
+#
+# ## Why use UID?
+#
+# The purpose of using a consistent UID and GID is to help security.
+#
+# We've seen projects that have a system process that runs across multiple
+# systems, and the system process is also is set to preserve a UID and/or GID.
+#
+# The use of a consistent UID and GID will ensure that the system process will
+# correctly involve the intended user and group. Ideally you can fix that process.
+#
+#
+# ## Why use random numbers?
+#
+# We use random numbers for the ZID and UID to improve spread and objectivity.
+#
+# We've seen projects that have issues due to user accounts that use non-random UIDs,
+# such as on a system where users were added over time with serial incrementing UIDs.
+##
+- hosts: all
+  tasks:
+    - include: tasks/create-user-and-group.yml
+      loop: "{{ users }}"
+  vars:
+    users:
+      - {
+          zid: "ac979adceb23b4f0625fc0bfde4abb6b",
+          state: "present",
+          name: "Alice Adams",
+          email: "alice@example.com",
+          tel: "+1-000-000-0000",
+          uid: "13509",
+          gid: "13509",	  
+          username: "alice",
+          authorized_key: "ssh-rsa ..."
+        }
+      - {
+          zid: "9fdfc23290dbd38cb6e9a899bc942c20",
+          state: "present",
+          name: "Bob Brown",
+          email: "bob@example.com",
+          tel: "+1-000-000-0000",
+          uid: "12460",
+          gid: "12460",	  
+          username: "bob",
+          authorized_key: "ssh-rsa ..."
+        }
+      - {
+          zid: "161ae8659535250a744bbc4cb6feb4ea",
+          state: "present",
+          name: "Carol Clark",
+          email: "carol@example.com",
+          tel: "+1-000-000-0000",
+          uid: "14356",
+          gid: "14356",	  
+          username: "carol",
+          authorized_key: "ssh-rsa ..."
+         }
