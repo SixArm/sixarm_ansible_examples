@@ -1,6 +1,7 @@
-- name: "nvm install via curl"
-  become: yes
-  become_user: root
-  shell: "/usr/bin/curl -sSL -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash -"
+- name: "nvm installer via curl"
+  shell: >
+    curl -sSL -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash -
   args:
+    chdir: "{{ ansible_env.HOME }}"
+    creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
     warn: false
