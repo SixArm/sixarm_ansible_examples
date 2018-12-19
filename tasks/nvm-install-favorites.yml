@@ -1,0 +1,6 @@
+- name: "nvm install our favorite node versions"
+  become: yes
+  become_user: root
+  command: "nvm install {{ item }}"
+  loop:
+    - node
