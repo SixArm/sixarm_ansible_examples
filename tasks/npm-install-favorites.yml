@@ -56,3 +56,5 @@
     - through2
     # Amazon Web Servies (AWS) Software Development Kit (SDK).
     - aws-sdk
+    # Compile native addon modules
+    - node-gyp
