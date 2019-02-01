@@ -151,5 +151,3 @@ Sidenote: to install boto3 globally to your system using python3, one way is to 
     $ git clone https://github.com/boto/boto3
     $ cd boto3
     $ python3 setup.py install
-
-

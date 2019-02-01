@@ -1,0 +1,18 @@
+- name: "github clone our favorite repos via HTTPS"
+  git:
+    repo: "https://github.com/{{ item }}"
+    dest: "~/{{ item }}"
+    force: yes
+  loop:
+    - user1/repo2
+    - user2/repo2
+    - user3/repo3
+- name: "github ssh clone our favorite repos via SSH"
+  git:
+    repo: "git@github.com:{{ item }}.git"
+    dest: "~/{{ item }}"
+    force: yes
+  loop:
+    - user1/repo2
+    - user2/repo2
+    - user3/repo3
