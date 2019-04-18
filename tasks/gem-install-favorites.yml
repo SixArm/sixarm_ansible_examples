@@ -6,13 +6,16 @@
   loop:
     - arel
     - bcrypt
+    - bcrypt-ruby
     - bdoc
     - bson
     - builder
     - bundler
+    - chef
     - curb
     - dotenv
     - faraday
+    - fastthread
     - ffi
     - hpricot
     - httparty
@@ -21,18 +24,26 @@
     - libv8
     - mechanize
     - mime-types
+    - mysql2
     - netrc
     - nokogiri
     - open4
     - parser
+    - pg
     - pry
+    - rails
     - rake
     - rdoc
+    - rmagick
+    - ruby-prof
+    - ruby-ide-debug
+    - sassc
     - selenium-client
     - selenium-rc
     - selenium-webdriver
     - sqlite3
     - ssh
+    - therubyracer
     - thor
     - websocket
     - websocket-driver
